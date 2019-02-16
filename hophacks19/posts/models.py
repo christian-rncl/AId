@@ -17,12 +17,17 @@ class Disaster(models.Model):
 
 
 class Post(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user")
+    payer = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="payer", null=True
+    )
     disaster = models.ForeignKey(Disaster, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     received_at = models.DateTimeField(auto_now=True)
     message = models.CharField(max_length=255)
     amount = models.IntegerField()
+    paid = models.BooleanField(default=False)
+    pin = models.IntegerField(null=True)
 
     def __str__(self):
         return self.message

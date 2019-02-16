@@ -86,7 +86,7 @@ DATABASES = {
         "PASSWORD": "password",
     }
 }
-
+AUTH_USER_MODEL = "accounts.User"
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -123,4 +123,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
+
+STRIPE_SECRET_KEY = "sk_test_pEcPSsX0StfxCOHtup1Ar5Mq"
+STRIPE_PUBLISHABLE_KEY = "pk_test_yAdZv3UFoaBffwEVNoTAQP5d"
 
