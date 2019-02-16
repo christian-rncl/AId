@@ -44,10 +44,11 @@ def make_csv():
     data_array = []
 
     for label in data_dict.keys():
-        gcs_folder = "food" if label == 'junk_food' or label == 'chips_junk_food' else label
+        gcs_folder = label
 
         for fname in data_dict[label]:
-            fname = fname+label if label == 'junk_food' or label == 'chips_junk_food' else fname
+            #fname = label+fname if label == 'junk_food' or label == 'chips_junk_food' else fname
+            label = 'food' if label == 'junk_food' or label == 'chips_junk_food' else label
             data_array.append((GCS_BASE + DSET_NAME + gcs_folder + "/" + fname, label))
 
     df = pd.DataFrame(data_array)

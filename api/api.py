@@ -13,10 +13,13 @@ def incoming_sms():
     resp = MessagingResponse()
 
     # Determine the right reply for this message
-    if body == 'hello':
-        resp.message("Hi!")
+    if body == 'help':
+      resp.message("Hi!")
     elif body == 'bye':
-        resp.message("Goodbye")
+      resp.message("Goodbye")
+    else:
+      resp.message('kek')
+   
 
     return str(resp)
 
