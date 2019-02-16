@@ -17,14 +17,13 @@ class PostList(generic.ListView):
 
 
 class CreatePost(LoginRequiredMixin, SelectRelatedMixin, generic.CreateView):
-    # form_class = forms.PostForm
-    fields = ("message", "amount")
+    fields = ("message", "amount", "disaster")
     model = models.Post
     success_url = "/posts/all"
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        self.object.user = self.request.user._wrapped.username
+        self.object.user = self.request.user
         self.object.save()
         return super().form_valid(form)
 
