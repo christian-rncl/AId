@@ -1,0 +1,1 @@
+web: gunicorn hophacks19.wsgi
