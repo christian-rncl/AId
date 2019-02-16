@@ -31,8 +31,8 @@ def crawl():
 def upload_gs():
     for label in CLASSES_COUNT:
         dir_name = '/'+label
-        print('executing: ', 'gsutil -m cp -r ' + label + " " + GCS_BASE + '/' + DSET_NAME)
-        os.system('gsutil -m cp -r ' + label + " " + GCS_BASE + '/' + DSET_NAME)
+        print('executing: ', 'gsutil -m cp -r ' + label + " " + GCS_BASE + DSET_NAME)
+        os.system('gsutil -m cp -r ' + label + " " + GCS_BASE  + DSET_NAME)
 
 '''
 uploads dset to GCS_BASE, creates uploads csv
@@ -44,15 +44,17 @@ def make_csv():
     data_array = []
 
     for label in data_dict.keys():
-        gcs_folder = label
+        gcs_folder = "food" if label == 'junk_food' or label == 'chips_junk_food' else label
 
         for fname in data_dict[label]:
-            data_array.append((GCS_BASE + DSET_NAME + gcs_folder + fname, label))
+            fname = fname+label if label == 'junk_food' or label == 'chips_junk_food' else fname
+            data_array.append((GCS_BASE + DSET_NAME + gcs_folder + "/" + fname, label))
 
     df = pd.DataFrame(data_array)
     df.to_csv(CSV_FNAME, index=False, header=False)
 
-    os.system('gsutil -m cp -r ' + CSV_FNAME + " " + GCS_BASE + '/' + DSET_NAME)
+    print("uploading: ", 'gsutil -m cp -r ' + CSV_FNAME + " " + GCS_BASE  + DSET_NAME)
+    os.system('gsutil cp ' + CSV_FNAME + " " + GCS_BASE + DSET_NAME)
 
 if __name__ == "__main__":
     crawl()
