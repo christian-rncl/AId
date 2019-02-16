@@ -28,7 +28,9 @@ html {
   border-top: 1px solid #e5e5e5;
 }
 
-
+body {
+  height: 100%;
+}
 
 .box-shadow {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
