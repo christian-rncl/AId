@@ -4,6 +4,7 @@ from posts.models import Post, Disaster
 from django.http import HttpResponse
 from django.core import serializers
 import numpy as np
+import requests
 
 # Create your views here.
 
@@ -76,5 +77,16 @@ def make_transaction(request, merchant_phone, pk):
     obj = Post.objects.get(pk=pk)
     merchant.balance += obj.amount
     merchant.save()
-    obj.delete()
-    return HttpResponse(serializers.serialize("json", [obj]))
+    user = obj.user
+    user.transactions += 1
+    user.save()
+    return HttpResponse(serializers.serialize("json", [user]))
+
+
+def update_score(request, username, cat):
+    user = User.objects.get(username=username)
+    post = Post.objects.filter(user=user).first()
+    if post.category == cat:
+        user.thumb_ups += 1
+        user.save()
+    return HttpResponse(serializers.serialize("json", [user]))

@@ -1,14 +1,13 @@
 <div class="card">
 	<h5 class="mr-5">@{{ post.user.first_name }}</h5>
-	<h6 class="mr-5">Score:
-		{% if post.user.score != null %}
-		{{post.user.score}}
-		{% else %}
-		Not yet rated
-		{% endif %}
+	<h6 class="mr-5">Thumb ups:
+		{{post.user.thumb_ups}}
+	</h6>
+	<h6 class="mr-5">Total transactions:
+		{{post.user.transactions}}
 	</h6>
 	<h6 class="mr-5">
-		Amount:{{post.amount}}
+		Amount:${{post.amount}}
 	</h6>
 	<div class="card-body">
 		<strong>{{ post.message }}</strong>

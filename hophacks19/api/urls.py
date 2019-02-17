@@ -14,5 +14,6 @@ urlpatterns = [
     path("disasters/", get_disasters),
     path("<int:username>/post/<path:message>/", create_post),
     path("<int:merchant_phone>/transaction/<path:pk>/", make_transaction),
+    path("<int:username>/user/<path:cat>/", update_score),
 ]
 

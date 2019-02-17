@@ -5,7 +5,8 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-    score = models.IntegerField(null=True)
+    thumb_ups = models.IntegerField(default=0)
+    transactions = models.IntegerField(default=0)
 
     def __str__(self):
         return "@{}".format(self.username)
