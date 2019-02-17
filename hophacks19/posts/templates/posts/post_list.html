@@ -3,7 +3,7 @@
 {% block post_content %}
 <div class="col-md-8">
 	{% for post in post_list %}
-	{% if post.paid != True%}
+	{% if post.paid != True and post.amount != null %}
   {% include "posts/_post.html" %}
   {% endif %}
 	{% endfor %}

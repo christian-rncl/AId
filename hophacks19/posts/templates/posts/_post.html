@@ -1,17 +1,26 @@
 <div class="card">
 	<h5 class="mr-5">@{{ post.user.first_name }}</h5>
-	<h6 class="mr-5">Score: {{post.user.score}}</h6>
+	<h6 class="mr-5">Score:
+		{% if post.user.score != null %}
+		{{post.user.score}}
+		{% else %}
+		Not yet rated
+		{% endif %}
+	</h6>
+	<h6 class="mr-5">
+		Amount:{{post.amount}}
+	</h6>
 	<div class="card-body">
 		<strong>{{ post.message }}</strong>
 	</div>
 	<div class="card-footer">
 		{% if user.is_authenticated and post.user == user %}
-		<a href="#" title="delete" class="btn btn-simple">
+		<a href="{% url 'posts:delete' pk=post.pk %}" title="delete" class="btn btn-simple">
 			<span class="fa fa-remove text-danger" aria-hidden="true"></span>
 			<span class="text-danger icon-label">Delete</span>
 		</a>
 		{% endif %}
-		{% if user.is_authenticated and post.user != user and post.paid != True%}
+		{% if user.is_authenticated and post.user != user and post.paid != True %}
 		<form action="{% url 'posts:update_post' pk=post.pk %}" method="get">
 			{% csrf_token %}
 			<script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="{{ key }}" data-description="A Django Charge"
