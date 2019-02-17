@@ -43,7 +43,8 @@ def addDisaster(phone, state):
 @app.route('/notifyuser', methods=['GET', 'POST'])
 def notifyUser():
   req = request.form.to_dict(flat=False)
-  msg = "You've been donated: $" + req['amount'][0] + " pin: " + req['pin'][0]
+  # print('REQ: ', req)
+  msg = "You've been donated: $" + req['amount'][0] + " for: " + req['category'][0] + " pay with pin: " + str(req['pin'][0])
   send_msg(req['phone'][0], msg)
   
 
@@ -53,6 +54,7 @@ def incoming_sms():
 
     resp = MessagingResponse()
     #lower case everything and remove whitespace
+    orig_body = request.values.get('Body', None)
     body = "".join(request.values.get('Body', None).lower().split())
     phonenum = request.values.get('From', None)[2:]
     from_state = request.values.get('FromState', None)
@@ -64,7 +66,8 @@ def incoming_sms():
       resp.message(msg)
     
     elif(body[:7] == "newpost"):
-      addPost(phonenum, body[8:])
+      texts = orig_body.split(':')
+      addPost(phonenum, texts[1])
       msg = "okay, I got your post, how much do you need? text us 'amount: <number>'"
       addDisaster(phonenum, from_state) 
       resp.message(msg)
@@ -74,10 +77,31 @@ def incoming_sms():
       requests.get(CORE_API + phonenum + "/post/amount/" + amt)
       resp.message("Thanks! What's this for? text 'for:<food, bottled_water>'")
 
-    elif(body[:2] == "for"):
-      requests.get(CORE_API + phonenum + "post/cat/" + body[3:])
+    elif(body[:3] == "for"):
+      print(CORE_API + phonenum + "/post/cat/" + body[4:])
+      requests.get(CORE_API + phonenum + "/post/cat/" + body[4:])
       msg = "You're all set! We'll message you when someone donates!"
       resp.message(msg)
+
+    elif(body[:7] == "payment"):
+      pin = body.split(":")[1]
+      requests.get(CORE_API + phonenum + "/transaction/" + pin)
+      msg = "You just got paid! Check your account"
+      resp.message(msg)
+
+    elif(body[:6] == "verify"):
+      if request.values['NumMedia'] != '0':
+          image_url = request.values['MediaUrl0']
+          msg = requests.get(image_url).content
+          pred = cv_verify.predict(msg, PROJECT_ID, MODEL_ID) 
+
+          prediction = pred.payload[0].display_name
+
+          msg ="You verified a purchase for " + prediction + "!"
+          resp.message(msg)
+      else:
+          resp.message("You need to verify with a picture!")
+
 
     else:
       if ensure_name(phonenum, body):
