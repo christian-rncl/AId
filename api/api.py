@@ -1,6 +1,6 @@
 import requests, json
 import cv_verify
-from util import get_fields
+from util import get_fields, send_msg
 from flask import Flask, request, redirect
 from twilio.twiml.messaging_response import MessagingResponse
 
@@ -11,7 +11,6 @@ CORE_API = 'http://22b17c96.ngrok.io/api/'
 
 signup_order = ['first_name']
 
-
 def register_usr(phone, r):
   fields = get_fields(r)
 
@@ -20,13 +19,33 @@ def register_usr(phone, r):
       if field == 'first_name':
         return "Enter a name everyone will see"
 
-def ensure_name(phone, r, name):
+def ensure_name(phone, name):
+  r = requests.get(CORE_API+phone).text
   fields = get_fields(r)
-  
   if fields['first_name'] == '':
-    requests.post(CORE_API + phone + "/first/" + name)
+    print(requests.get(CORE_API + phone + "/first/" + name))
     return True
   return False
+
+def addPost(phone, body):
+  print(CORE_API + phone + "/post/" +body)
+  requests.get(CORE_API + phone + "/post/" +body )
+
+def addDisaster(phone, state):
+  r = json.loads(requests.get(CORE_API + 'disasters').text)
+  disaster_areas = {}
+  for pk, obj in enumerate(r):
+    disaster_areas[obj['fields']['state']] = pk + 1
+
+  if(state.upper() in disaster_areas.keys()):
+    requests.get(CORE_API + phone + '/post/disaster/' + str(disaster_areas[state.upper()]))
+
+@app.route('/notifyuser', methods=['GET', 'POST'])
+def notifyUser():
+  req = request.form.to_dict(flat=False)
+  msg = "You've been donated: $" + req['amount'][0] + " pin: " + req['pin'][0]
+  send_msg(req['phone'][0], msg)
+  
 
 @app.route("/sms", methods=['GET', 'POST'])
 def incoming_sms():
@@ -37,16 +56,33 @@ def incoming_sms():
     body = "".join(request.values.get('Body', None).lower().split())
     phonenum = request.values.get('From', None)[2:]
     from_state = request.values.get('FromState', None)
-    from_country = request.values.get('FromCountry', None)
+    #from_country = request.values.get('FromCountry', None)
 
     if(body == "helpme"):
       r = requests.get(CORE_API+phonenum).text
       msg = register_usr(phonenum, r)
       resp.message(msg)
+    
+    elif(body[:7] == "newpost"):
+      addPost(phonenum, body[8:])
+      msg = "okay, I got your post, how much do you need? text us 'amount: <number>'"
+      addDisaster(phonenum, from_state) 
+      resp.message(msg)
+
+    elif(body[:6] == "amount"):
+      amt = "".join(body[7:].split())
+      requests.get(CORE_API + phonenum + "/post/amount/" + amt)
+      resp.message("Thanks! What's this for? text 'for:<food, bottled_water>'")
+
+    elif(body[:2] == "for"):
+      requests.get(CORE_API + phonenum + "post/cat/" + body[3:])
+      msg = "You're all set! We'll message you when someone donates!"
+      resp.message(msg)
 
     else:
-      if ensure_name(phonenum, r, body):
-        resp.message("Okay, ", body, "request for donations by texting 'mypost: <your request here>'")
+      if ensure_name(phonenum, body):
+        msg = "Okay, " + body + ", text us 'newpost: <what you need (not how much)>'"
+        resp.message(msg)
       else:
         resp.message("Emergency? Make a request by sending 'help me'")
 
