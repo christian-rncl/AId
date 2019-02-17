@@ -47,6 +47,12 @@ def make_csv():
         gcs_folder = label
 
         for fname in data_dict[label]:
+            
+            if label == 'junk_food' or label == 'chips_junk_food':
+                label = 'food'
+            elif(label == 'tables' or label == 'chairs' or label == 'floor' or label == 'carpeted_floor' or label == 'lecture_hall'):
+                label = 'other'
+
             #fname = label+fname if label == 'junk_food' or label == 'chips_junk_food' else fname
             label = 'food' if label == 'junk_food' or label == 'chips_junk_food' else label
             data_array.append((GCS_BASE + DSET_NAME + gcs_folder + "/" + fname, label))
@@ -61,3 +67,10 @@ if __name__ == "__main__":
     crawl()
     upload_gs()
     make_csv()
+    print("csv link: ", GCS_BASE + DSET_NAME + CSV_FNAME)
+
+    if DELETE_AFTER:
+        for k in CLASSES_COUNT.keys():
+            shutil.rmtree('./'+k)
+        os.remove('./'+CSV_FNAME)
+

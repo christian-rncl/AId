@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "glossy-motif-231903",
+  "private_key_id": "430341e206c46fdc0c256b67b8d1f6962a27b7c9",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDlkWpBsd9Txsyv\n5Fz/cHXS+r5m04BD0ZPJtJr02/scg+91DsRgAQMLVI3EhtY8rjec7zEknrN82K+K\ny3fKLW8ZjQ9rsbdbbPFvv/0YspmlIG2JRXuANaQ6DUrea21evh5X/y28n9XZRYiA\niPTCu5eNpGNKiJIvGn3NjcutD7FyWFyNj3kqcl9fK5tQM45htFUsOsplNr/fju0m\nfPvIXCJqwORZX/yVgL1MCjete46xFXgNaufPQlnI4qZFBCUtM/AQPK+vGULUAwB6\ny1ysccGEXs+BND8hUfcSQTiEZx+w66v7UtqivHQWLmFPmWO5ujcniwL/V/LWpfFc\nTD+23+9DAgMBAAECggEAWtYrQUtsnu2u2Hp4Aesx9AWbiXxu6GbpH4sDNZhFyIa8\nHYl2UraTycvvPLBN3TzibIqI24CgbOogq77O64UGzQlv7KEpeFenQRyqvTcObLRk\nI0kHETgof3/6+/9uC2sW/qLOKjDkoVBOLu4CS3uHAFjnoPphPZox5UASM6xd/mwQ\naVrGGMf+JK71FW57OIscAqnFc1YJJW9HI6cuZ3nrDvVmSuVYdiQrhWKVOdlRtukr\nDpciJTbIN0UBkO91HVfDpncVJmlLQe5MMd8rCOgO4TyULgVAyP3wHGZhRUnPaa0b\ng3ZhRzlAwFME8QcNGkGAS9LmKsA3pjHUmLRxlgnswQKBgQD4wNR9LGU5U/Hks/WN\nICUN3jDiM2u85e+GygkLXolwXKBnQo5G7tdoszvKBETVgP9iw892iWs9fdDqvKBZ\nX/qZ1G2W4BA1BeQFG5Shf7HrpqCjeoyclLGYkF9if2RpjlnQ7vXz7s4hGnF0Gu8e\n6XKfQoq2KhmskBn0Yq/rUTpEywKBgQDsQYEPn0ydw7O2pV5ClCU1Zjoo+7Md3x9B\nh4z+XahW6JHEXKMo4bqmM/kWyIrCB+YL5EyT8JOmrZRZqaDnMsc1AJby7NMY1HaV\npkJArsCglZB4cuqeQzEKuv8emgHqL2Xu8c7vVbozTGn9UPpeY4s1/bBlfyLYoiTl\nsQ+mtG4oaQKBgQC5V/w7dBvL9kcy7/+S8pOJXLexozywV+b72IeaqArh5LJDniyi\nn41y3rE62alsJ5yiO2HWYZe9DoTekkMrtL7lZYluNG7/Au+d+qnpF1s7SUFB7ard\ndFFLaq8XlfH8UGuNqK8r3RBLTAeiyfrHXovgLFVsW7wbfpdIJ0wKmtA+twKBgFbA\nouSaqSaRUy9xP9CQ16zpEdg0vIvuf2qvnJ1WxNbM5aHGJn9/i+s10HSGRTWEcvvQ\n5DG6uG0O9heKizP6WF3lDoi7X7SRZ84B0/gucztEUF16TR66K4r2KXISOTvGFdcM\n4eDOiOYHXDARiS4ZvWeg9SH/8kq8F3JkdwvO21hpAoGAHaPOumjXr9Dy8nB5VSpA\npTruYKYJNsfJFI3uWgODixRnicNyvbJASnWe6XO7RRH0o/hkkGQA9LpJgIqnzOMn\nYPgYYcefJVSVyvBmwNg7119AMtPd3GgB0Hn2YYT+omxbFhC0tKx/AU5Nqrie9Pkw\nxRkW+INmNtJp9/8ASREAGHY=\n-----END PRIVATE KEY-----\n",
+  "client_email": "aidapi@glossy-motif-231903.iam.gserviceaccount.com",
+  "client_id": "103746446824333406328",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/aidapi%40glossy-motif-231903.iam.gserviceaccount.com"
+}
