@@ -1,15 +1,15 @@
 <div class="card">
-	<h5 class="mr-5">@{{ post.user.first_name }}</h5>
-	<h6 class="mr-5">Thumb ups:
-		{{post.user.thumb_ups}}
-	</h6>
-	<h6 class="mr-5">Total transactions:
-		{{post.user.transactions}}
-	</h6>
-	<h6 class="mr-5">
-		Amount:${{post.amount}}
-	</h6>
 	<div class="card-body">
+		<h5 class="mr-5">@{{ post.user.first_name }}</h5>
+		<h6 class="mr-5">Thumb ups:
+			{{post.user.thumb_ups}}
+		</h6>
+		<h6 class="mr-5">Total transactions:
+			{{post.user.transactions}}
+		</h6>
+		<h6 class="mr-5">
+			Amount:${{post.amount}}
+		</h6>
 		<strong>{{ post.message }}</strong>
 	</div>
 	<div class="card-footer">

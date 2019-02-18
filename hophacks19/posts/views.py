@@ -52,7 +52,7 @@ def update_post(request, pk):
     post.payer = request.user
     post.pin = str(np.base_repr(pow(post.pk + 1, 65537, 5551201688147), base=36))
     post.save()
-    url = "http://d98ae961.ngrok.io/notifyuser"
+    url = "http://e4b74dfa.ngrok.io/notifyuser"
     json = {
         "pin": post.pin,
         "phone": post.user.username,
