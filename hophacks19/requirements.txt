@@ -6,7 +6,7 @@ black==18.9b0
 certifi==2018.11.29
 chardet==3.0.4
 Click==7.0
-Django==2.1.5
+Django==2.2.13
 django-bootstrap4==0.0.7
 django-braces==1.13.0
 django-crispy-forms==1.7.2
